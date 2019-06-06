@@ -1,7 +1,8 @@
 DISCORD_CONFIG = {
-    'token': 'Your_client_secret_goes_here'
+    'token': 'NTg2MDkxMjE1ODA0NDMyMzg0.XPjMkw.7f1KZ4sWpQ-K1bnyinXKIj87Vog'
 }
 
 COMMAND_CONFIG = {
-    'clear_value':5
+    'default_clear_value':5,
+    'max_clear_value': 100
 }
