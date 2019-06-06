@@ -1,5 +1,5 @@
 DISCORD_CONFIG = {
-    'token': 'NTg2MDkxMjE1ODA0NDMyMzg0.XPjMkw.7f1KZ4sWpQ-K1bnyinXKIj87Vog'
+    'token': 'Your_client_secret_goes_here'
 }
 
 COMMAND_CONFIG = {
