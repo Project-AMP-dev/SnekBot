@@ -1,60 +1,101 @@
-from client.base import client
-from settings import config
-import time
+from settings.config import MODERATION
+import asyncio
 import discord
 import discord.ext.commands.errors as error
+from discord.ext import commands
 
-@client.command()
-async def clear(ctx, amount=config.COMMAND_CONFIG['default_clear_value']):
-  try:
-    if amount < config.COMMAND_CONFIG['max_clear_value'] and amount > 0:
-      await ctx.channel.purge(limit=(amount+1))
-      await ctx.channel.send(f'Cleared {amount} messages.:boom:')
-      time.sleep(2)
-      await ctx.channel.purge(limit=1)
+class Moderation(commands.Cog):
+
+  def __init__(self, client):
+    self.client = client
+
+  @commands.command()
+  async def clear(self, ctx, amount = MODERATION['default_clear_value']):
+    '''Delete messages from a channel with the amount of messages specified.'''
+    permissions = ctx.message.author.permissions_in(ctx.message.channel)
+    if permissions.manage_messages:
+      if amount < MODERATION['max_clear_value'] and amount > 0:
+        await ctx.channel.purge(limit=(amount+1))
+        await ctx.channel.send(f':white_check_mark: Cleared {amount} messages.:boom:')
+        await asyncio.sleep(1)
+        await ctx.channel.purge(limit=1)
+      else:
+        await ctx.channel.send(f':x: Please make sure amount is between 0 and {MODERATION["max_clear_value"]}.') 
     else:
-      await ctx.channel.send(f':warning:Please make sure amount is between 0 and {config.COMMAND_CONFIG["max_clear_value"]}.') 
-  except error.BadArgument:
-    await ctx.channel.send(f':warning:Not a valid number.')
+      await ctx.channel.send(f':x: You don\'t have the sufficient permissions {ctx.message.author.mention}.')
+
+  @clear.error
+  async def clear_error(self, ctx, error):
+    if isinstance(error, commands.BadArgument):
+      await ctx.channel.send(':x: Please enter a valid number.')
   
-@client.command()
-async def kick(ctx, member : discord.Member, *, reason="Unknown reason.:shrug:"):
-  try:
-    if ctx.message.author.s
-      kick_user = discord.Member
+  @commands.command()
+  async def kick(self, ctx, member : discord.Member, *, reason=MODERATION['default_kick_reason']):
+    '''Kick user from a server by mentioning them with a reason.'''
+    permissions = ctx.message.author.permissions_in(ctx.message.channel)
+    if permissions.kick_members:
       await member.kick(reason=reason)
-      await ctx.channel.send(f'Kicked {kick_user} due to {reason}')
+      await ctx.channel.send(f':white_check_mark: Kicked {member} due to {reason}')
     else:
-      await ctx.channel.send(f'You don\'t have the permissions {ctx.message.author.name}.')
-  except error.BadArgument:
-    await ctx.channel.send(f':warning:User not found. ')
+      await ctx.channel.send(f':x: You don\'t have the sufficient permissions {ctx.message.author.mention}.')
 
-@client.command()
-async def ban(ctx, member : discord.Member, *, reason=None):
-  try:
-    ban_user = discord.Member 
-    await member.ban(reason=reason)
-    await ctx.channel.send(f'Banned {ban_user} due to {reason}')
-  except error.CommandInvokeError:
-    await ctx.channel.send()
+  @kick.error
+  async def kick_error(self, ctx, error):
+    if isinstance(error, commands.BadArgument):
+      await ctx.channel.send(':x: Please enter a valid user.')
 
-@client.command()
-async def warn(ctx, member: discord.Member, *, message="You have been warned."):
-  try:
-    await member.send(message)
-    await ctx.channel.purge(limit=1)
-    await ctx.channel.send(f'{member} warned successfully.')
-  except error.BadArgument:
-    await ctx.channel.send(f'User {member} not found.')
+  @commands.command()
+  async def ban(self, ctx, member : discord.Member, *, reason=MODERATION['default_ban_reason']):
+    '''Ban user from a server by mentioning them with a reason.'''
+    permissions = ctx.message.author.permissions_in(ctx.message.channel)
+    if permissions.ban_members: 
+      await member.ban(reason=reason)
+      await ctx.channel.send(f':white_check_mark: Banned {member} due to {reason}')
+    else:
+      await ctx.channel.send(f':x: You don\'t have the sufficient permissions {ctx.message.author.mention}.')
+  
+  @ban.error
+  async def ban_error(self, ctx, error):
+    if isinstance(error, commands.BadArgument):
+      await ctx.channel.send(':x: Please enter a valid user.')
 
-@client.command()
-async def unban(ctx, *, member):
-  banned_users = await ctx.guild.bans()
-  member_name, member_discriminator = member.split('#')
+  @commands.command()
+  async def warn(self, ctx, member: discord.Member, *, message="You have been warned."):
+    '''Warn user from a server by mentioning them with a warning message.'''
+    permissions = ctx.message.author.permissions_in(ctx.message.channel)
+    if permissions.ban_members:
+      await member.send(message)
+      await ctx.channel.purge(limit=1)
+      await ctx.channel.send(f'{member} warned successfully.')
+    else:
+      await ctx.channel.send(f':x: You don\'t have the sufficient permissions {ctx.message.author.mention}.')
+    
+  @warn.error
+  async def warn_error(self, ctx, error):
+    if isinstance(error, commands.BadArgument):
+      await ctx.channel.send(':x: Please enter a valid user.')
 
-  for ban_entry in banned_users:
-    user = ban_entry.user
-    if (user.name, user.discriminator) == (member_name, member_discriminator):
-      await ctx.guild.unban(user)
-      await ctx.channel.send(f'Unbanned {user.mention}')
-      return 
+  @commands.command()
+  async def unban(self, ctx, *, member):
+    '''Unban user from a server by mentioning them.'''
+    permissions = ctx.message.author.permissions_in(ctx.message.channel)
+    if permissions.ban_members:
+      banned_users = await ctx.guild.bans()
+      member_name, member_discriminator = member.split('#')
+
+      for ban_entry in banned_users:
+        user = ban_entry.user
+        if (user.name, user.discriminator) == (member_name, member_discriminator):
+          await ctx.guild.unban(user)
+          await ctx.channel.send(f':white_check_mark: Unbanned {user.mention}')
+          return 
+    else:
+      await ctx.channel.send(f':x: You don\'t have the sufficient permissions {ctx.message.author.mention}.')
+
+  @unban.error
+  async def unban_error(self, ctx, error):
+    if isinstance(error, commands.BadArgument):
+      await ctx.channel.send(':x: Please enter a valid user.')
+
+def setup(client):
+  client.add_cog(Moderation(client))

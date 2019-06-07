@@ -5,11 +5,13 @@ verify_ssl = true
 
 [dev-packages]
 pylint = "*"
+autopep8 = "*"
 
 [packages]
 discord-py = {extras = ["voice"],version = "*"}
 pyfiglet = "*"
 config = "*"
+youtube-dl = "*"
 
 [requires]
 python_version = "3.7"

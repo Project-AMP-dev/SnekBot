@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "541952747c71b826aafe60e524eb3e6f7f6ed13ecfa63c60ead5c7f4c2cec89d"
+            "sha256": "5effebb11a600955247a7ae49ca0ecfffe79bfd93b89abf6b0346d8656125f81"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -157,7 +157,6 @@
         },
         "pycparser": {
             "hashes": [
-                "sha256:60d90b499bf22bcd0a6440f5a3fc8e41cddcd0dbb892bc0e941105cae233dba5",
                 "sha256:a988718abfad80b6b157acce7bf130a30876d27603738ac39f140993246b25b3"
             ],
             "version": "==2.19"
@@ -242,6 +241,14 @@
                 "sha256:e060906c0c585565c718d1c3841747b61c5439af2211e185f6739a9412dfbde1"
             ],
             "version": "==1.3.0"
+        },
+        "youtube-dl": {
+            "hashes": [
+                "sha256:9f0724b15db26b14bc847830bc3affbc408d73f40e3e7e71c29f410627355f56",
+                "sha256:f73babe4bbad1c1eab3b4d74042ed8204cd62820e8489db74d3087ff9a6575df"
+            ],
+            "index": "pypi",
+            "version": "==2019.5.20"
         }
     },
     "develop": {
@@ -251,6 +258,13 @@
                 "sha256:b65db1bbaac9f9f4d190199bb8680af6f6f84fd3769a5ea883df8a91fe68b4c4"
             ],
             "version": "==2.2.5"
+        },
+        "autopep8": {
+            "hashes": [
+                "sha256:4d8eec30cc81bc5617dbf1218201d770dc35629363547f17577c61683ccfb3ee"
+            ],
+            "index": "pypi",
+            "version": "==1.4.4"
         },
         "colorama": {
             "hashes": [
@@ -297,6 +311,13 @@
             ],
             "version": "==0.6.1"
         },
+        "pycodestyle": {
+            "hashes": [
+                "sha256:95a2219d12372f05704562a14ec30bc76b05a5b297b21a5dfe3f6fac3491ae56",
+                "sha256:e40a936c9a450ad81df37f549d676d127b1b66000a6c500caa2b085bc0ca976c"
+            ],
+            "version": "==2.5.0"
+        },
         "pylint": {
             "hashes": [
                 "sha256:5d77031694a5fb97ea95e828c8d10fc770a1df6eb3906067aaed42201a8a6a09",
@@ -335,7 +356,6 @@
         },
         "wrapt": {
             "hashes": [
-                "sha256:21eb9701b5c42be75d21fc2e2b53c7bf1b838228fb3176eb3928b008a78200b7",
                 "sha256:4aea003270831cceb8a90ff27c4031da6ead7ec1886023b80ce0dfe0adf61533"
             ],
             "version": "==1.11.1"
