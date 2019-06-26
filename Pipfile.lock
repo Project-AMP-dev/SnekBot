@@ -244,11 +244,11 @@
         },
         "youtube-dl": {
             "hashes": [
-                "sha256:6091e44d2f7ceb99c24b81204b9238681275706e95fcd40ad8b001e0ebd74787",
-                "sha256:93ca1ff30b99223318305cf4f30a02b8ea2cf5fdd2816f83d60aaa3c1bb19432"
+                "sha256:871a49c899709ad24e00da9ff88d165e399669439763ee0baa4b52929e84933d",
+                "sha256:a64ffda79f467c81877d5452d775ebf858b43853ff7ce8644be3a80ebf3f9ea9"
             ],
             "index": "pypi",
-            "version": "==2019.6.8"
+            "version": "==2019.6.21"
         }
     },
     "develop": {
@@ -348,9 +348,9 @@
         },
         "wrapt": {
             "hashes": [
-                "sha256:4aea003270831cceb8a90ff27c4031da6ead7ec1886023b80ce0dfe0adf61533"
+                "sha256:565a021fd19419476b9362b05eeaa094178de64f8361e44468f9e9d7843901e1"
             ],
-            "version": "==1.11.1"
+            "version": "==1.11.2"
         }
     }
 }
