@@ -1,5 +1,5 @@
 DISCORD = {
-    'token': 'NTg2MDkxMjE1ODA0NDMyMzg0.XPjMkw.7f1KZ4sWpQ-K1bnyinXKIj87Vog'
+    'token': 'Your token'
 }
 
 MODERATION = {
