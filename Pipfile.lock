@@ -114,10 +114,10 @@
                 "voice"
             ],
             "hashes": [
-                "sha256:4684733fa137cc7def18087ae935af615212e423e3dbbe3e84ef01d7ae8ed17d"
+                "sha256:7c843b523bb011062b453864e75c7b675a03faf573c58d14c9f096e85984329d"
             ],
             "index": "pypi",
-            "version": "==1.2.3"
+            "version": "==1.2.5"
         },
         "idna": {
             "hashes": [
